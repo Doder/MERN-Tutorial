@@ -54,9 +54,10 @@ class BugList extends React.Component{
 		//ajax request here
 		this.loadData();
 	}
-	loadData(filter = {}){
-		var status = filter.status;
+	loadData(filter = { priority: 'any' ,status : 'any'}){
+		var status = filter.status ;
 		var priority = filter.priority;
+		console.log(`ajax: /api/bugs?priority=${priority}&status=${status}`);
 		$.ajax(`/api/bugs?priority=${priority}&status=${status}`).done((data) =>{
 			this.setState({bugs: data});
 		});
@@ -81,7 +82,6 @@ class BugList extends React.Component{
 	render(){
 		return(
 			<div>
-			<h1>Hide me</h1>
 			<BugFilter loadData={this.loadData}/>
 			<BugTable bugs={this.state.bugs}/>
 			<BugAdd addBug = {this.addBug}/>

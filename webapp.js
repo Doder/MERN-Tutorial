@@ -20,9 +20,9 @@ app.get('/api/bugs', function(req, res){
     var status = req.query.status;
     var searchObject = {};
 
-    if(priority && status) searchObject = {priority: priority, status: status}
-    else if(priority) searchObject = {priority: priority}
-    else if(status) searchObject = {status: status}
+    if(priority !== 'any' && status !== 'any') searchObject = {priority: priority, status: status}
+    else if(priority !== 'any') searchObject = {priority: priority}
+    else if(status !== 'any') searchObject = {status: status}
     
     var result = db.collection("bugs")
     .find(searchObject)
