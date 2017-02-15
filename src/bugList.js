@@ -48,11 +48,16 @@ class BugList extends React.Component{
 		super();
 		this.state = {bugs: []};
 		this.addBug = this.addBug.bind(this);
+		this.loadData = this.loadData.bind(this);
 	}
 	componentDidMount(){
 		//ajax request here
-		
-		$.ajax('/api/bugs').done((data) =>{
+		this.loadData();
+	}
+	loadData(filter = {}){
+		var status = filter.status;
+		var priority = filter.priority;
+		$.ajax(`/api/bugs?priority=${priority}&status=${status}`).done((data) =>{
 			this.setState({bugs: data});
 		});
 	}
@@ -77,7 +82,7 @@ class BugList extends React.Component{
 		return(
 			<div>
 			<h1>Hide me</h1>
-			<BugFilter/>
+			<BugFilter loadData={this.loadData}/>
 			<BugTable bugs={this.state.bugs}/>
 			<BugAdd addBug = {this.addBug}/>
 			</div>

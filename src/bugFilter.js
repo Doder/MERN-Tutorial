@@ -3,9 +3,17 @@ var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
 class BugFilter extends React.Component{
+	constructor(){
+		super();
+		this.clickHandler = this.clickHandler.bind(this);
+	}
+	clickHandler(){
+		var filter = {priority: "P2"};
+		this.props.loadData(filter);
+	}
 	render(){
 		return(
-			<div>Bug filtering</div>
+			<button type="button" onClick={this.clickHandler}>Filter</button>
 		);
 	}
 }

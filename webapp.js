@@ -16,9 +16,20 @@ var db;
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.get('/api/bugs', function(req, res){
-    var result = db.collection("bugs").find().toArray(function(err, docs){
+    var priority = req.query.priority;
+    var status = req.query.status;
+    var searchObject = {};
+
+    if(priority && status) searchObject = {priority: priority, status: status}
+    else if(priority) searchObject = {priority: priority}
+    else if(status) searchObject = {status: status}
+    
+    var result = db.collection("bugs")
+    .find(searchObject)
+    .toArray(function(err, docs){
         res.json(docs);
     });
+
 });
 app.post('/api/bugs', function(req, res){
     var newBug = req.body;
