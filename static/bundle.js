@@ -35621,11 +35621,17 @@ class BugFilter extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			priority: 'any',
-			status: 'any'
+			priority: '',
+			status: ''
 		};
 		this.clickHandler = this.clickHandler.bind(this);
 		this.changeHandler = this.changeHandler.bind(this);
+	}
+	componentDidMount() {
+		this.setState({
+			priority: this.props.query.priority,
+			status: this.props.query.status
+		});
 	}
 	clickHandler() {
 		var filter = {
@@ -35655,10 +35661,10 @@ class BugFilter extends React.Component {
 			),
 			React.createElement(
 				'select',
-				{ name: 'priority', onChange: this.changeHandler },
+				{ name: 'priority', value: this.state.priority, onChange: this.changeHandler },
 				React.createElement(
 					'option',
-					{ value: 'any' },
+					{ value: 'undefined' },
 					'Any'
 				),
 				React.createElement(
@@ -35680,10 +35686,10 @@ class BugFilter extends React.Component {
 			),
 			React.createElement(
 				'select',
-				{ name: 'status', onChange: this.changeHandler },
+				{ name: 'status', value: this.state.status, onChange: this.changeHandler },
 				React.createElement(
 					'option',
-					{ value: 'any' },
+					{ value: 'undefined' },
 					'Any'
 				),
 				React.createElement(
@@ -35811,7 +35817,7 @@ class BugList extends React.Component {
 		//ajax request here
 		this.loadData();
 	}
-	loadData(filter = { priority: 'any', status: 'any' }) {
+	loadData(filter = {}) {
 		var status = filter.status;
 		var priority = filter.priority;
 		console.log(`ajax: /api/bugs?priority=${priority}&status=${status}`);
@@ -35840,7 +35846,7 @@ class BugList extends React.Component {
 		return React.createElement(
 			'div',
 			null,
-			React.createElement(BugFilter, { loadData: this.loadData }),
+			React.createElement(BugFilter, { loadData: this.loadData, query: this.props.location.query }),
 			React.createElement(BugTable, { bugs: this.state.bugs }),
 			React.createElement(BugAdd, { addBug: this.addBug })
 		);

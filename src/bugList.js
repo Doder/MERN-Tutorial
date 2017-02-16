@@ -55,7 +55,7 @@ class BugList extends React.Component{
 		//ajax request here
 		this.loadData();
 	}
-	loadData(filter = { priority: 'any' ,status : 'any'}){
+	loadData(filter = {}){
 		var status = filter.status ;
 		var priority = filter.priority;
 		console.log(`ajax: /api/bugs?priority=${priority}&status=${status}`);
@@ -83,7 +83,7 @@ class BugList extends React.Component{
 	render(){
 		return(
 			<div>
-			<BugFilter loadData={this.loadData}/>
+			<BugFilter loadData={this.loadData} query={this.props.location.query}/>
 			<BugTable bugs={this.state.bugs}/>
 			<BugAdd addBug = {this.addBug}/>
 			</div>

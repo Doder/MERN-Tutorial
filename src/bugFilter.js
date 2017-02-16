@@ -6,11 +6,17 @@ class BugFilter extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			priority : 'any',
-			status : 'any'
+			priority : '',
+			status: ''
 		};
 		this.clickHandler = this.clickHandler.bind(this);
 		this.changeHandler = this.changeHandler.bind(this);
+	}
+	componentDidMount(){
+		this.setState({
+			priority : this.props.query.priority,
+			status: this.props.query.status
+		});
 	}
 	clickHandler(){
 		var filter = {
@@ -34,14 +40,14 @@ class BugFilter extends React.Component{
 		return(
 			<div id="filter">
 				<label>Priority</label>
-				<select name="priority" onChange={this.changeHandler}>
-					<option value="any">Any</option>
+				<select name='priority' value={this.state.priority} onChange={this.changeHandler}>
+					<option value="undefined">Any</option>
 					<option value="P1">P1</option>
 					<option value="P2">P2</option>
 				</select><br/>
 				<label>Status</label>
-				<select name="status" onChange={this.changeHandler}>
-					<option value="any">Any</option>
+				<select name='status' value={this.state.status} onChange={this.changeHandler}>
+					<option value="undefined">Any</option>
 					<option value="New">New</option>
 					<option value="Old">Old</option>
 				</select><br/>
