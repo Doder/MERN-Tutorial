@@ -4,6 +4,7 @@ var $ = require('jquery');
 var BugAdd = require('./bugAdd.js');
 var BugFilter = require('./bugFilter.js');
 
+
 class BugRow extends React.Component{
 	render(){
 		return(
