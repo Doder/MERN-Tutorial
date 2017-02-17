@@ -35638,7 +35638,7 @@ class BugFilter extends React.Component {
 			priority: this.state.priority,
 			status: this.state.status
 		};
-		this.props.loadData(filter);
+		this.props.changeFilter(filter);
 	}
 	changeHandler(e) {
 		e.preventDefault();
@@ -35651,65 +35651,7 @@ class BugFilter extends React.Component {
 		});
 	}
 	render() {
-		return React.createElement(
-			'div',
-			{ id: 'filter' },
-			React.createElement(
-				'label',
-				null,
-				'Priority'
-			),
-			React.createElement(
-				'select',
-				{ name: 'priority', value: this.state.priority, onChange: this.changeHandler },
-				React.createElement(
-					'option',
-					{ value: 'undefined' },
-					'Any'
-				),
-				React.createElement(
-					'option',
-					{ value: 'P1' },
-					'P1'
-				),
-				React.createElement(
-					'option',
-					{ value: 'P2' },
-					'P2'
-				)
-			),
-			React.createElement('br', null),
-			React.createElement(
-				'label',
-				null,
-				'Status'
-			),
-			React.createElement(
-				'select',
-				{ name: 'status', value: this.state.status, onChange: this.changeHandler },
-				React.createElement(
-					'option',
-					{ value: 'undefined' },
-					'Any'
-				),
-				React.createElement(
-					'option',
-					{ value: 'New' },
-					'New'
-				),
-				React.createElement(
-					'option',
-					{ value: 'Old' },
-					'Old'
-				)
-			),
-			React.createElement('br', null),
-			React.createElement(
-				'button',
-				{ type: 'button', onClick: this.clickHandler },
-				'Filter'
-			)
-		);
+		return React.createElement('div', { id: 'filter' }, React.createElement('label', null, 'Priority'), React.createElement('select', { name: 'priority', value: this.state.priority, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2')), React.createElement('br', null), React.createElement('label', null, 'Status'), React.createElement('select', { name: 'status', value: this.state.status, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'New' }, 'New'), React.createElement('option', { value: 'Old' }, 'Old')), React.createElement('br', null), React.createElement('button', { type: 'button', onClick: this.clickHandler }, 'Filter'));
 	}
 }
 
@@ -35724,35 +35666,7 @@ var BugFilter = require('./bugFilter.js');
 
 class BugRow extends React.Component {
 	render() {
-		return React.createElement(
-			'tr',
-			null,
-			React.createElement(
-				'td',
-				null,
-				this.props.bug._id
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.status
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.priority
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.owner
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.title
-			)
-		);
+		return React.createElement('tr', null, React.createElement('td', null, this.props.bug._id), React.createElement('td', null, this.props.bug.status), React.createElement('td', null, this.props.bug.priority), React.createElement('td', null, this.props.bug.owner), React.createElement('td', null, this.props.bug.title));
 	}
 }
 
@@ -35761,48 +35675,7 @@ class BugTable extends React.Component {
 		var bugRows = this.props.bugs.map(bug => {
 			return React.createElement(BugRow, { key: bug._id, bug: bug });
 		});
-		return React.createElement(
-			'table',
-			null,
-			React.createElement(
-				'thead',
-				null,
-				React.createElement(
-					'tr',
-					null,
-					React.createElement(
-						'th',
-						null,
-						'Id'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Status'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Priority'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Owner'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Title'
-					)
-				)
-			),
-			React.createElement(
-				'tbody',
-				null,
-				bugRows
-			)
-		);
+		return React.createElement('table', null, React.createElement('thead', null, React.createElement('tr', null, React.createElement('th', null, 'Id'), React.createElement('th', null, 'Status'), React.createElement('th', null, 'Priority'), React.createElement('th', null, 'Owner'), React.createElement('th', null, 'Title'))), React.createElement('tbody', null, bugRows));
 	}
 }
 
@@ -35812,6 +35685,7 @@ class BugList extends React.Component {
 		this.state = { bugs: [] };
 		this.addBug = this.addBug.bind(this);
 		this.loadData = this.loadData.bind(this);
+		this.changeFilter = this.changeFilter.bind(this);
 	}
 	componentDidMount() {
 		//ajax request here
@@ -35824,6 +35698,12 @@ class BugList extends React.Component {
 		$.ajax(`/api/bugs?priority=${priority}&status=${status}`).done(data => {
 			this.setState({ bugs: data });
 		});
+	}
+	changeFilter(filter) {
+		//sync url and loadData 
+		var params = $.param(filter);
+		this.props.router.push(`?${params}`);
+		this.loadData(filter);
 	}
 	addBug(bug) {
 		console.log("Adding bug:", bug);
@@ -35843,13 +35723,7 @@ class BugList extends React.Component {
 		});
 	}
 	render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(BugFilter, { loadData: this.loadData, query: this.props.location.query }),
-			React.createElement(BugTable, { bugs: this.state.bugs }),
-			React.createElement(BugAdd, { addBug: this.addBug })
-		);
+		return React.createElement('div', null, React.createElement(BugFilter, { changeFilter: this.changeFilter, query: this.props.location.query }), React.createElement(BugTable, { bugs: this.state.bugs }), React.createElement(BugAdd, { addBug: this.addBug }));
 	}
 }
 

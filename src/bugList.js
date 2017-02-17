@@ -4,7 +4,6 @@ var $ = require('jquery');
 var BugAdd = require('./bugAdd.js');
 var BugFilter = require('./bugFilter.js');
 
-
 class BugRow extends React.Component{
 	render(){
 		return(
@@ -50,6 +49,7 @@ class BugList extends React.Component{
 		this.state = {bugs: []};
 		this.addBug = this.addBug.bind(this);
 		this.loadData = this.loadData.bind(this);
+		this.changeFilter = this.changeFilter.bind(this);
 	}
 	componentDidMount(){
 		//ajax request here
@@ -62,6 +62,12 @@ class BugList extends React.Component{
 		$.ajax(`/api/bugs?priority=${priority}&status=${status}`).done((data) =>{
 			this.setState({bugs: data});
 		});
+	}
+	changeFilter(filter){
+		//sync url and loadData 
+		var params = $.param(filter);
+		this.props.router.push(`?${params}`);
+		this.loadData(filter);
 	}
 	addBug(bug){
 		console.log("Adding bug:", bug);
@@ -83,7 +89,7 @@ class BugList extends React.Component{
 	render(){
 		return(
 			<div>
-			<BugFilter loadData={this.loadData} query={this.props.location.query}/>
+			<BugFilter changeFilter={this.changeFilter} query={this.props.location.query}/>
 			<BugTable bugs={this.state.bugs}/>
 			<BugAdd addBug = {this.addBug}/>
 			</div>

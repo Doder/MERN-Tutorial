@@ -23,7 +23,7 @@ class BugFilter extends React.Component{
 			priority : this.state.priority,
 			status: this.state.status,
 		}
-		this.props.loadData(filter);
+		this.props.changeFilter(filter);
 	}
 	changeHandler(e){
 		e.preventDefault();
