@@ -35554,13 +35554,7 @@ var Link = require('react-router').Link;
 var hashHistory = require('react-router').hashHistory;
 var Redirect = require('react-router').Redirect;
 
-ReactDOM.render(React.createElement(
-	Router,
-	{ history: hashHistory },
-	React.createElement(Redirect, { from: '/', to: '/bugs' }),
-	React.createElement(Route, { path: '/bugs', component: BugList }),
-	React.createElement(Route, { path: '*', component: NotFound })
-), document.getElementById('main'));
+ReactDOM.render(React.createElement(Router, { history: hashHistory }, React.createElement(Redirect, { from: '/', to: '/bugs' }), React.createElement(Route, { path: '/bugs', component: BugList }), React.createElement(Route, { path: '*', component: NotFound })), document.getElementById('main'));
 
 },{"./bugList.js":237,"./notFound.js":238,"react":231,"react-dom":47,"react-router":200}],235:[function(require,module,exports){
 var React = require('react');

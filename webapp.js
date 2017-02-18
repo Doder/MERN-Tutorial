@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-
+var ObjectID = require('mongodb').ObjectID;
 
 var bugData = [
 {id: 1, priority: "P1", status: "Open", owner:"Amelia", title:"App crashes on open"},
@@ -28,6 +28,13 @@ app.get('/api/bugs', function(req, res){
     .find(searchObject)
     .toArray(function(err, docs){
         res.json(docs);
+    });
+
+});
+app.get('/api/bugs/:id', function(req, res, err){
+    db.collection('bugs').findOne({_id: ObjectID(req.params.id)}, function(err, bug){
+        res.json(bug);
+        console.log(bug);
     });
 
 });
