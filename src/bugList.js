@@ -67,7 +67,19 @@ class BugList extends React.Component{
 		//sync url and loadData 
 		var params = $.param(filter);
 		this.props.router.push(`?${params}`);
-		this.loadData(filter);
+	}
+	componentDidUpdate(prevProps){
+		let oldPriority = prevProps.location.query.priority;
+		let oldStatus = prevProps.location.query.status;
+		var filter = {
+			priority : this.props.location.query.priority,
+			status: this.props.location.query.status
+		}
+		if(oldPriority !== filter.priority ||
+		oldStatus !== filter.status){
+			this.loadData(filter);
+		}
+
 	}
 	addBug(bug){
 		console.log("Adding bug:", bug);

@@ -36,6 +36,18 @@ class BugFilter extends React.Component{
 		});
 
 	}
+	componentWillReceiveProps(nextProps){
+		let newPriority = nextProps.query.priority;
+		let newStatus = nextProps.query.status;
+		let filter = {
+			priority : newPriority,
+			status: newStatus
+		}
+		if(newPriority !== this.state.priority ||
+		newStatus !== this.state.status){
+			this.setState(filter);
+		}
+	}
 	render(){
 		return(
 			<div id="filter">
