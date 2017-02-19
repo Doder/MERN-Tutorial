@@ -35618,6 +35618,7 @@ module.exports = BugAdd;
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Link = require('react-router').Link;
 
 class BugEdit extends React.Component {
     constructor(doc) {
@@ -35660,13 +35661,13 @@ class BugEdit extends React.Component {
         });
     }
     render() {
-        return React.createElement('div', null, React.createElement('form', { onSubmit: this.handleSubmit, name: 'bugEdit' }, 'Title:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }), React.createElement('br', null), 'Owner:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }), React.createElement('br', null), 'Status:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'status', value: this.state.status, onChange: this.handleChange }), React.createElement('br', null), 'Priority:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'priority', value: this.state.priority, onChange: this.handleChange }), React.createElement('br', null), React.createElement('input', { type: 'submit', value: 'Submit' })));
+        return React.createElement('div', null, React.createElement('form', { onSubmit: this.handleSubmit, name: 'bugEdit' }, 'Title:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }), React.createElement('br', null), 'Owner:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }), React.createElement('br', null), 'Status:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'status', value: this.state.status, onChange: this.handleChange }), React.createElement('br', null), 'Priority:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'priority', value: this.state.priority, onChange: this.handleChange }), React.createElement('br', null), React.createElement('input', { type: 'submit', value: 'Submit' })), React.createElement(Link, { to: '/bugs' }, 'Bug List'));
     }
 }
 
 module.exports = BugEdit;
 
-},{"jquery":43,"react":231,"react-dom":47}],237:[function(require,module,exports){
+},{"jquery":43,"react":231,"react-dom":47,"react-router":200}],237:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -35786,38 +35787,11 @@ var ReactDOM = require('react-dom');
 var $ = require('jquery');
 var BugAdd = require('./bugAdd.js');
 var BugFilter = require('./bugFilter.js');
+var Link = require('react-router').Link;
 
 class BugRow extends React.Component {
 	render() {
-		return React.createElement(
-			'tr',
-			null,
-			React.createElement(
-				'td',
-				null,
-				this.props.bug._id
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.status
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.priority
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.owner
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.title
-			)
-		);
+		return React.createElement('tr', null, React.createElement('td', null, React.createElement(Link, { to: `/bugs/${this.props.bug._id}` }, this.props.bug._id)), React.createElement('td', null, this.props.bug.status), React.createElement('td', null, this.props.bug.priority), React.createElement('td', null, this.props.bug.owner), React.createElement('td', null, this.props.bug.title));
 	}
 }
 
@@ -35826,48 +35800,7 @@ class BugTable extends React.Component {
 		var bugRows = this.props.bugs.map(bug => {
 			return React.createElement(BugRow, { key: bug._id, bug: bug });
 		});
-		return React.createElement(
-			'table',
-			null,
-			React.createElement(
-				'thead',
-				null,
-				React.createElement(
-					'tr',
-					null,
-					React.createElement(
-						'th',
-						null,
-						'Id'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Status'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Priority'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Owner'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Title'
-					)
-				)
-			),
-			React.createElement(
-				'tbody',
-				null,
-				bugRows
-			)
-		);
+		return React.createElement('table', null, React.createElement('thead', null, React.createElement('tr', null, React.createElement('th', null, 'Id'), React.createElement('th', null, 'Status'), React.createElement('th', null, 'Priority'), React.createElement('th', null, 'Owner'), React.createElement('th', null, 'Title'))), React.createElement('tbody', null, bugRows));
 	}
 }
 
@@ -35925,19 +35858,13 @@ class BugList extends React.Component {
 		});
 	}
 	render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(BugFilter, { changeFilter: this.changeFilter, query: this.props.location.query }),
-			React.createElement(BugTable, { bugs: this.state.bugs }),
-			React.createElement(BugAdd, { addBug: this.addBug })
-		);
+		return React.createElement('div', null, React.createElement(BugFilter, { changeFilter: this.changeFilter, query: this.props.location.query }), React.createElement(BugTable, { bugs: this.state.bugs }), React.createElement(BugAdd, { addBug: this.addBug }));
 	}
 }
 
 module.exports = BugList;
 
-},{"./bugAdd.js":235,"./bugFilter.js":237,"jquery":43,"react":231,"react-dom":47}],239:[function(require,module,exports){
+},{"./bugAdd.js":235,"./bugFilter.js":237,"jquery":43,"react":231,"react-dom":47,"react-router":200}],239:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 

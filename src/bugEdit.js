@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Link = require('react-router').Link;
 
 class BugEdit extends React.Component {
     constructor(doc){
@@ -61,6 +62,7 @@ class BugEdit extends React.Component {
 				<br/>
 				<input type="submit" value="Submit"/>
 			</form>
+            <Link to="/bugs">Bug List</Link>
             </div>
         );
     }
