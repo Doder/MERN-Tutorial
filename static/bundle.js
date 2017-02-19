@@ -35547,6 +35547,7 @@ module.exports = warning;
 var React = require('react');
 var ReactDOM = require('react-dom');
 var BugList = require('./bugList.js');
+var BugEdit = require('./bugEdit.js');
 var NotFound = require('./notFound.js');
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -35554,9 +35555,16 @@ var Link = require('react-router').Link;
 var hashHistory = require('react-router').hashHistory;
 var Redirect = require('react-router').Redirect;
 
-ReactDOM.render(React.createElement(Router, { history: hashHistory }, React.createElement(Redirect, { from: '/', to: '/bugs' }), React.createElement(Route, { path: '/bugs', component: BugList }), React.createElement(Route, { path: '*', component: NotFound })), document.getElementById('main'));
+ReactDOM.render(React.createElement(
+	Router,
+	{ history: hashHistory },
+	React.createElement(Redirect, { from: '/', to: '/bugs' }),
+	React.createElement(Route, { path: '/bugs', component: BugList }),
+	React.createElement(Route, { path: '/bugs/:bugId', component: BugEdit }),
+	React.createElement(Route, { path: '*', component: NotFound })
+), document.getElementById('main'));
 
-},{"./bugList.js":237,"./notFound.js":238,"react":231,"react-dom":47,"react-router":200}],235:[function(require,module,exports){
+},{"./bugEdit.js":236,"./bugList.js":238,"./notFound.js":239,"react":231,"react-dom":47,"react-router":200}],235:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -35611,6 +35619,58 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
+class BugEdit extends React.Component {
+    constructor(doc) {
+        super();
+        this.state = {
+            title: 'undefined',
+            owner: 'underfined',
+            status: 'undefined',
+            priority: 'undefined'
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount() {
+        $.ajax('/api/bugs/' + this.props.params.bugId).done(data => {
+            this.setState(data);
+        });
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        const bug = { title: this.state.title, owner: this.state.owner,
+            status: this.state.status, priority: this.state.priority };
+        $.ajax({
+            type: 'PUT',
+            url: '/api/bugs/' + this.props.params.bugId,
+            contentType: 'application/json',
+            data: JSON.stringify(bug),
+            success: function (data) {}.bind(this),
+            error: function (xhr, status, err) {
+                // ideally, show error to user.
+                console.log("Error adding bug:", err);
+            }
+        });
+    }
+    handleChange(e) {
+        let target = e.target;
+        let x = target.name;
+        this.setState({
+            [x]: target.value
+        });
+    }
+    render() {
+        return React.createElement('div', null, React.createElement('form', { onSubmit: this.handleSubmit, name: 'bugEdit' }, 'Title:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }), React.createElement('br', null), 'Owner:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }), React.createElement('br', null), 'Status:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'status', value: this.state.status, onChange: this.handleChange }), React.createElement('br', null), 'Priority:', React.createElement('br', null), React.createElement('input', { type: 'text', name: 'priority', value: this.state.priority, onChange: this.handleChange }), React.createElement('br', null), React.createElement('input', { type: 'submit', value: 'Submit' })));
+    }
+}
+
+module.exports = BugEdit;
+
+},{"jquery":43,"react":231,"react-dom":47}],237:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+var $ = require('jquery');
+
 class BugFilter extends React.Component {
 	constructor() {
 		super();
@@ -35656,13 +35716,71 @@ class BugFilter extends React.Component {
 		}
 	}
 	render() {
-		return React.createElement('div', { id: 'filter' }, React.createElement('label', null, 'Priority'), React.createElement('select', { name: 'priority', value: this.state.priority, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2')), React.createElement('br', null), React.createElement('label', null, 'Status'), React.createElement('select', { name: 'status', value: this.state.status, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'New' }, 'New'), React.createElement('option', { value: 'Old' }, 'Old')), React.createElement('br', null), React.createElement('button', { type: 'button', onClick: this.clickHandler }, 'Filter'));
+		return React.createElement(
+			'div',
+			{ id: 'filter' },
+			React.createElement(
+				'label',
+				null,
+				'Priority'
+			),
+			React.createElement(
+				'select',
+				{ name: 'priority', value: this.state.priority, onChange: this.changeHandler },
+				React.createElement(
+					'option',
+					{ value: 'undefined' },
+					'Any'
+				),
+				React.createElement(
+					'option',
+					{ value: 'P1' },
+					'P1'
+				),
+				React.createElement(
+					'option',
+					{ value: 'P2' },
+					'P2'
+				)
+			),
+			React.createElement('br', null),
+			React.createElement(
+				'label',
+				null,
+				'Status'
+			),
+			React.createElement(
+				'select',
+				{ name: 'status', value: this.state.status, onChange: this.changeHandler },
+				React.createElement(
+					'option',
+					{ value: 'undefined' },
+					'Any'
+				),
+				React.createElement(
+					'option',
+					{ value: 'New' },
+					'New'
+				),
+				React.createElement(
+					'option',
+					{ value: 'Old' },
+					'Old'
+				)
+			),
+			React.createElement('br', null),
+			React.createElement(
+				'button',
+				{ type: 'button', onClick: this.clickHandler },
+				'Filter'
+			)
+		);
 	}
 }
 
 module.exports = BugFilter;
 
-},{"jquery":43,"react":231,"react-dom":47}],237:[function(require,module,exports){
+},{"jquery":43,"react":231,"react-dom":47}],238:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -35819,7 +35937,7 @@ class BugList extends React.Component {
 
 module.exports = BugList;
 
-},{"./bugAdd.js":235,"./bugFilter.js":236,"jquery":43,"react":231,"react-dom":47}],238:[function(require,module,exports){
+},{"./bugAdd.js":235,"./bugFilter.js":237,"jquery":43,"react":231,"react-dom":47}],239:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
