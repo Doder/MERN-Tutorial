@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Button = require('react-bootstrap').Button;
 
 class BugFilter extends React.Component{
 	constructor(){
@@ -63,7 +64,7 @@ class BugFilter extends React.Component{
 					<option value="New">New</option>
 					<option value="Old">Old</option>
 				</select><br/>
-				<button type="button" onClick={this.clickHandler}>Filter</button>
+				<Button bsStyle="primary" onClick={this.clickHandler}>Filter</Button>
 			</div>
 		);
 	}
