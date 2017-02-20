@@ -3,11 +3,7 @@ var ReactDOM = require('react-dom');
 var BugList = require('./bugList.js');
 var BugEdit = require('./bugEdit.js');
 var NotFound = require('./notFound.js');
-var Router = require('react-router').Router
-var Route = require('react-router').Route
-var Link = require('react-router').Link
-var hashHistory = require('react-router').hashHistory;
-var Redirect = require('react-router').Redirect;
+import {Router, Route, Link, hashHistory, Redirect} from 'react-router'
 
 
 ReactDOM.render((

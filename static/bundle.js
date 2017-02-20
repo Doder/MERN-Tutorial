@@ -53791,274 +53791,497 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 },{"_process":165}],499:[function(require,module,exports){
+'use strict';
+
+var _reactRouter = require('react-router');
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var BugList = require('./bugList.js');
 var BugEdit = require('./bugEdit.js');
 var NotFound = require('./notFound.js');
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var Link = require('react-router').Link;
-var hashHistory = require('react-router').hashHistory;
-var Redirect = require('react-router').Redirect;
+
 
 ReactDOM.render(React.createElement(
-	Router,
-	{ history: hashHistory },
-	React.createElement(Redirect, { from: '/', to: '/bugs' }),
-	React.createElement(Route, { path: '/bugs', component: BugList }),
-	React.createElement(Route, { path: '/bugs/:bugId', component: BugEdit }),
-	React.createElement(Route, { path: '*', component: NotFound })
+	_reactRouter.Router,
+	{ history: _reactRouter.hashHistory },
+	React.createElement(_reactRouter.Redirect, { from: '/', to: '/bugs' }),
+	React.createElement(_reactRouter.Route, { path: '/bugs', component: BugList }),
+	React.createElement(_reactRouter.Route, { path: '/bugs/:bugId', component: BugEdit }),
+	React.createElement(_reactRouter.Route, { path: '*', component: NotFound })
 ), document.getElementById('main'));
 
 },{"./bugEdit.js":501,"./bugList.js":503,"./notFound.js":504,"react":493,"react-dom":264,"react-router":462}],500:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
-class BugAdd extends React.Component {
-	constructor() {
-		super();
-		this.state = {
+var BugAdd = function (_React$Component) {
+	_inherits(BugAdd, _React$Component);
+
+	function BugAdd() {
+		_classCallCheck(this, BugAdd);
+
+		var _this = _possibleConstructorReturn(this, (BugAdd.__proto__ || Object.getPrototypeOf(BugAdd)).call(this));
+
+		_this.state = {
 			title: '',
 			owner: ''
 		};
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		_this.handleChange = _this.handleChange.bind(_this);
+		_this.handleSubmit = _this.handleSubmit.bind(_this);
+		return _this;
 	}
-	handleSubmit(e) {
-		e.preventDefault();
-		this.props.addBug({ owner: this.state.owner, title: this.state.title, status: 'New', priority: 'P1' });
-		this.setState({
-			title: '',
-			owner: ''
-		});
-	}
-	handleChange(event) {
-		var target = event.target;
-		var name = target.name;
-		var value = target.value;
-		this.setState({
-			[name]: value
-		});
-	}
-	render() {
-		return React.createElement(
-			'form',
-			{ onSubmit: this.handleSubmit, name: 'bugAdd' },
-			'Title:',
-			React.createElement('br', null),
-			React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }),
-			React.createElement('br', null),
-			'Owner:',
-			React.createElement('br', null),
-			React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }),
-			React.createElement('br', null),
-			React.createElement('input', { type: 'submit', value: 'Submit' })
-		);
-	}
-}
+
+	_createClass(BugAdd, [{
+		key: 'handleSubmit',
+		value: function handleSubmit(e) {
+			e.preventDefault();
+			this.props.addBug({ owner: this.state.owner, title: this.state.title, status: 'New', priority: 'P1' });
+			this.setState({
+				title: '',
+				owner: ''
+			});
+		}
+	}, {
+		key: 'handleChange',
+		value: function handleChange(event) {
+			var target = event.target;
+			var name = target.name;
+			var value = target.value;
+			this.setState(_defineProperty({}, name, value));
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return React.createElement(
+				'form',
+				{ onSubmit: this.handleSubmit, name: 'bugAdd' },
+				'Title:',
+				React.createElement('br', null),
+				React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }),
+				React.createElement('br', null),
+				'Owner:',
+				React.createElement('br', null),
+				React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }),
+				React.createElement('br', null),
+				React.createElement('input', { type: 'submit', value: 'Submit' })
+			);
+		}
+	}]);
+
+	return BugAdd;
+}(React.Component);
 
 module.exports = BugAdd;
 
 },{"jquery":162,"react":493,"react-dom":264}],501:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 var Link = require('react-router').Link;
 
-class BugEdit extends React.Component {
-    constructor(doc) {
-        super();
-        this.state = {
+var BugEdit = function (_React$Component) {
+    _inherits(BugEdit, _React$Component);
+
+    function BugEdit(doc) {
+        _classCallCheck(this, BugEdit);
+
+        var _this = _possibleConstructorReturn(this, (BugEdit.__proto__ || Object.getPrototypeOf(BugEdit)).call(this));
+
+        _this.state = {
             title: 'undefined',
             owner: 'underfined',
             status: 'undefined',
             priority: 'undefined'
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
-    componentDidMount() {
-        $.ajax('/api/bugs/' + this.props.params.bugId).done(data => {
-            this.setState(data);
-        });
-    }
-    handleSubmit(e) {
-        e.preventDefault();
-        const bug = { title: this.state.title, owner: this.state.owner,
-            status: this.state.status, priority: this.state.priority };
-        $.ajax({
-            type: 'PUT',
-            url: '/api/bugs/' + this.props.params.bugId,
-            contentType: 'application/json',
-            data: JSON.stringify(bug),
-            success: function (data) {}.bind(this),
-            error: function (xhr, status, err) {
-                // ideally, show error to user.
-                console.log("Error adding bug:", err);
-            }
-        });
-    }
-    handleChange(e) {
-        let target = e.target;
-        let x = target.name;
-        this.setState({
-            [x]: target.value
-        });
-    }
-    render() {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'form',
-                { onSubmit: this.handleSubmit, name: 'bugEdit' },
-                'Title:',
-                React.createElement('br', null),
-                React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }),
-                React.createElement('br', null),
-                'Owner:',
-                React.createElement('br', null),
-                React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }),
-                React.createElement('br', null),
-                'Status:',
-                React.createElement('br', null),
-                React.createElement('input', { type: 'text', name: 'status', value: this.state.status, onChange: this.handleChange }),
-                React.createElement('br', null),
-                'Priority:',
-                React.createElement('br', null),
-                React.createElement('input', { type: 'text', name: 'priority', value: this.state.priority, onChange: this.handleChange }),
-                React.createElement('br', null),
-                React.createElement('input', { type: 'submit', value: 'Submit' })
-            ),
-            React.createElement(
-                Link,
-                { to: '/bugs' },
-                'Bug List'
-            )
-        );
-    }
-}
+
+    _createClass(BugEdit, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            $.ajax('/api/bugs/' + this.props.params.bugId).done(function (data) {
+                _this2.setState(data);
+            });
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            var bug = { title: this.state.title, owner: this.state.owner,
+                status: this.state.status, priority: this.state.priority };
+            $.ajax({
+                type: 'PUT',
+                url: '/api/bugs/' + this.props.params.bugId,
+                contentType: 'application/json',
+                data: JSON.stringify(bug),
+                success: function (data) {}.bind(this),
+                error: function error(xhr, status, err) {
+                    // ideally, show error to user.
+                    console.log("Error adding bug:", err);
+                }
+            });
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(e) {
+            var target = e.target;
+            var x = target.name;
+            this.setState(_defineProperty({}, x, target.value));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit, name: 'bugEdit' },
+                    'Title:',
+                    React.createElement('br', null),
+                    React.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleChange }),
+                    React.createElement('br', null),
+                    'Owner:',
+                    React.createElement('br', null),
+                    React.createElement('input', { type: 'text', name: 'owner', value: this.state.owner, onChange: this.handleChange }),
+                    React.createElement('br', null),
+                    'Status:',
+                    React.createElement('br', null),
+                    React.createElement('input', { type: 'text', name: 'status', value: this.state.status, onChange: this.handleChange }),
+                    React.createElement('br', null),
+                    'Priority:',
+                    React.createElement('br', null),
+                    React.createElement('input', { type: 'text', name: 'priority', value: this.state.priority, onChange: this.handleChange }),
+                    React.createElement('br', null),
+                    React.createElement('input', { type: 'submit', value: 'Submit' })
+                ),
+                React.createElement(
+                    Link,
+                    { to: '/bugs' },
+                    'Bug List'
+                )
+            );
+        }
+    }]);
+
+    return BugEdit;
+}(React.Component);
 
 module.exports = BugEdit;
 
 },{"jquery":162,"react":493,"react-dom":264,"react-router":462}],502:[function(require,module,exports){
+'use strict';
+
+var _typeof27 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _typeof26 = typeof Symbol === "function" && _typeof27(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof27(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof27(obj);
+};
+
+var _typeof25 = typeof Symbol === "function" && _typeof26(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof26(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof26(obj);
+};
+
+var _typeof24 = typeof Symbol === "function" && _typeof25(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof25(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof25(obj);
+};
+
+var _typeof23 = typeof Symbol === "function" && _typeof24(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof24(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof24(obj);
+};
+
+var _typeof22 = typeof Symbol === "function" && _typeof23(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof23(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof23(obj);
+};
+
+var _typeof21 = typeof Symbol === "function" && _typeof22(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof22(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof22(obj);
+};
+
+var _typeof20 = typeof Symbol === "function" && _typeof21(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof21(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof21(obj);
+};
+
+var _typeof19 = typeof Symbol === "function" && _typeof20(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof20(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof20(obj);
+};
+
+var _typeof18 = typeof Symbol === "function" && _typeof19(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof19(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof19(obj);
+};
+
+var _typeof17 = typeof Symbol === "function" && _typeof18(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof18(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof18(obj);
+};
+
+var _typeof16 = typeof Symbol === "function" && _typeof17(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof17(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof17(obj);
+};
+
+var _typeof15 = typeof Symbol === "function" && _typeof16(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof16(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof16(obj);
+};
+
+var _typeof14 = typeof Symbol === "function" && _typeof15(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof15(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof15(obj);
+};
+
+var _typeof13 = typeof Symbol === "function" && _typeof14(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof14(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof14(obj);
+};
+
+var _typeof12 = typeof Symbol === "function" && _typeof13(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof13(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof13(obj);
+};
+
+var _typeof11 = typeof Symbol === "function" && _typeof12(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof12(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof12(obj);
+};
+
+var _typeof10 = typeof Symbol === "function" && _typeof11(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof11(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof11(obj);
+};
+
+var _typeof9 = typeof Symbol === "function" && _typeof10(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof10(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof10(obj);
+};
+
+var _typeof8 = typeof Symbol === "function" && _typeof9(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof9(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof9(obj);
+};
+
+var _typeof7 = typeof Symbol === "function" && _typeof8(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof8(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof8(obj);
+};
+
+var _typeof6 = typeof Symbol === "function" && _typeof7(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof7(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof7(obj);
+};
+
+var _typeof5 = typeof Symbol === "function" && _typeof6(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof6(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof6(obj);
+};
+
+var _typeof4 = typeof Symbol === "function" && _typeof5(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof5(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof5(obj);
+};
+
+var _typeof3 = typeof Symbol === "function" && _typeof4(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof4(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof4(obj);
+};
+
+var _typeof2 = typeof Symbol === "function" && _typeof3(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof3(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof3(obj);
+};
+
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+
+var _createClass = function () {
+	function defineProperties(target, props) {
+		for (var i = 0; i < props.length; i++) {
+			var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+		}
+	}return function (Constructor, protoProps, staticProps) {
+		if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	};
+}();
+
+var _reactBootstrap = require('react-bootstrap');
+
+function _defineProperty(obj, key, value) {
+	if (key in obj) {
+		Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+	} else {
+		obj[key] = value;
+	}return obj;
+}
+
+function _classCallCheck(instance, Constructor) {
+	if (!(instance instanceof Constructor)) {
+		throw new TypeError("Cannot call a class as a function");
+	}
+}
+
+function _possibleConstructorReturn(self, call) {
+	if (!self) {
+		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+	if (typeof superClass !== "function" && superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+	}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
-var Button = require('react-bootstrap').Button;
 
-class BugFilter extends React.Component {
-	constructor() {
-		super();
-		this.state = {
+var BugFilter = function (_React$Component) {
+	_inherits(BugFilter, _React$Component);
+
+	function BugFilter() {
+		_classCallCheck(this, BugFilter);
+
+		var _this = _possibleConstructorReturn(this, (BugFilter.__proto__ || Object.getPrototypeOf(BugFilter)).call(this));
+
+		_this.state = {
 			priority: '',
 			status: ''
 		};
-		this.clickHandler = this.clickHandler.bind(this);
-		this.changeHandler = this.changeHandler.bind(this);
+		_this.clickHandler = _this.clickHandler.bind(_this);
+		_this.changeHandler = _this.changeHandler.bind(_this);
+		return _this;
 	}
-	componentDidMount() {
-		this.setState({
-			priority: this.props.query.priority,
-			status: this.props.query.status
-		});
-	}
-	clickHandler() {
-		var filter = {
-			priority: this.state.priority,
-			status: this.state.status
-		};
-		this.props.changeFilter(filter);
-	}
-	changeHandler(e) {
-		e.preventDefault();
-		var target = e.target;
-		var filterItem = target.name;
-		var value = target.value;
 
-		this.setState({
-			[filterItem]: value
-		});
-	}
-	componentWillReceiveProps(nextProps) {
-		let newPriority = nextProps.query.priority;
-		let newStatus = nextProps.query.status;
-		let filter = {
-			priority: newPriority,
-			status: newStatus
-		};
-		if (newPriority !== this.state.priority || newStatus !== this.state.status) {
-			this.setState(filter);
+	_createClass(BugFilter, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.setState({
+				priority: this.props.query.priority,
+				status: this.props.query.status
+			});
 		}
-	}
-	render() {
-		return React.createElement(
-			'div',
-			{ id: 'filter' },
-			React.createElement(
-				'label',
-				null,
-				'Priority'
-			),
-			React.createElement(
-				'select',
-				{ name: 'priority', value: this.state.priority, onChange: this.changeHandler },
-				React.createElement(
-					'option',
-					{ value: 'undefined' },
-					'Any'
-				),
-				React.createElement(
-					'option',
-					{ value: 'P1' },
-					'P1'
-				),
-				React.createElement(
-					'option',
-					{ value: 'P2' },
-					'P2'
-				)
-			),
-			React.createElement('br', null),
-			React.createElement(
-				'label',
-				null,
-				'Status'
-			),
-			React.createElement(
-				'select',
-				{ name: 'status', value: this.state.status, onChange: this.changeHandler },
-				React.createElement(
-					'option',
-					{ value: 'undefined' },
-					'Any'
-				),
-				React.createElement(
-					'option',
-					{ value: 'New' },
-					'New'
-				),
-				React.createElement(
-					'option',
-					{ value: 'Old' },
-					'Old'
-				)
-			),
-			React.createElement('br', null),
-			React.createElement(
-				Button,
-				{ bsStyle: 'primary', onClick: this.clickHandler },
-				'Filter'
-			)
-		);
-	}
-}
+	}, {
+		key: 'clickHandler',
+		value: function clickHandler() {
+			var filter = {
+				priority: this.state.priority,
+				status: this.state.status
+			};
+			this.props.changeFilter(filter);
+		}
+	}, {
+		key: 'changeHandler',
+		value: function changeHandler(e) {
+			e.preventDefault();
+			var target = e.target;
+			var filterItem = target.name;
+			var value = target.value;
+
+			this.setState(_defineProperty({}, filterItem, value));
+		}
+	}, {
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			var newPriority = nextProps.query.priority;
+			var newStatus = nextProps.query.status;
+			var filter = {
+				priority: newPriority,
+				status: newStatus
+			};
+			if (newPriority !== this.state.priority || newStatus !== this.state.status) {
+				this.setState(filter);
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return React.createElement(_reactBootstrap.Panel, { header: 'Filter', collapsible: true, expanded: true }, React.createElement(_reactBootstrap.Grid, { fluid: true }, React.createElement(_reactBootstrap.Row, null, React.createElement(_reactBootstrap.Col, { md: 4 }, React.createElement('label', null, 'Priority'), React.createElement('select', { name: 'priority', value: this.state.priority, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2'))), React.createElement(_reactBootstrap.Col, { md: 4 }, React.createElement('label', null, 'Status'), React.createElement('select', { name: 'status', value: this.state.status, onChange: this.changeHandler }, React.createElement('option', { value: 'undefined' }, 'Any'), React.createElement('option', { value: 'New' }, 'New'), React.createElement('option', { value: 'Old' }, 'Old'))), React.createElement(_reactBootstrap.Col, { md: 4 }, React.createElement(_reactBootstrap.Button, { bsStyle: 'primary', onClick: this.clickHandler }, 'Filter')))));
+		}
+	}]);
+
+	return BugFilter;
+}(React.Component);
 
 module.exports = BugFilter;
 
 },{"jquery":162,"react":493,"react-bootstrap":253,"react-dom":264}],503:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
@@ -54066,173 +54289,248 @@ var BugAdd = require('./bugAdd.js');
 var BugFilter = require('./bugFilter.js');
 var Link = require('react-router').Link;
 
-class BugRow extends React.Component {
-	render() {
-		return React.createElement(
-			'tr',
-			null,
-			React.createElement(
-				'td',
-				null,
-				React.createElement(
-					Link,
-					{ to: `/bugs/${this.props.bug._id}` },
-					this.props.bug._id
-				)
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.status
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.priority
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.owner
-			),
-			React.createElement(
-				'td',
-				null,
-				this.props.bug.title
-			)
-		);
-	}
-}
+var BugRow = function (_React$Component) {
+	_inherits(BugRow, _React$Component);
 
-class BugTable extends React.Component {
-	render() {
-		var bugRows = this.props.bugs.map(bug => {
-			return React.createElement(BugRow, { key: bug._id, bug: bug });
-		});
-		return React.createElement(
-			'table',
-			null,
-			React.createElement(
-				'thead',
+	function BugRow() {
+		_classCallCheck(this, BugRow);
+
+		return _possibleConstructorReturn(this, (BugRow.__proto__ || Object.getPrototypeOf(BugRow)).apply(this, arguments));
+	}
+
+	_createClass(BugRow, [{
+		key: 'render',
+		value: function render() {
+			return React.createElement(
+				'tr',
 				null,
 				React.createElement(
-					'tr',
+					'td',
 					null,
 					React.createElement(
-						'th',
-						null,
-						'Id'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Status'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Priority'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Owner'
-					),
-					React.createElement(
-						'th',
-						null,
-						'Title'
+						Link,
+						{ to: '/bugs/' + this.props.bug._id },
+						this.props.bug._id
 					)
+				),
+				React.createElement(
+					'td',
+					null,
+					this.props.bug.status
+				),
+				React.createElement(
+					'td',
+					null,
+					this.props.bug.priority
+				),
+				React.createElement(
+					'td',
+					null,
+					this.props.bug.owner
+				),
+				React.createElement(
+					'td',
+					null,
+					this.props.bug.title
 				)
-			),
-			React.createElement(
-				'tbody',
-				null,
-				bugRows
-			)
-		);
-	}
-}
-
-class BugList extends React.Component {
-	constructor() {
-		super();
-		this.state = { bugs: [] };
-		this.addBug = this.addBug.bind(this);
-		this.loadData = this.loadData.bind(this);
-		this.changeFilter = this.changeFilter.bind(this);
-	}
-	componentDidMount() {
-		//ajax request here
-		this.loadData();
-	}
-	loadData(filter = {}) {
-		var status = filter.status;
-		var priority = filter.priority;
-		console.log(`ajax: /api/bugs?priority=${priority}&status=${status}`);
-		$.ajax(`/api/bugs?priority=${priority}&status=${status}`).done(data => {
-			this.setState({ bugs: data });
-		});
-	}
-	changeFilter(filter) {
-		//sync url and loadData 
-		var params = $.param(filter);
-		this.props.router.push(`?${params}`);
-	}
-	componentDidUpdate(prevProps) {
-		let oldPriority = prevProps.location.query.priority;
-		let oldStatus = prevProps.location.query.status;
-		var filter = {
-			priority: this.props.location.query.priority,
-			status: this.props.location.query.status
-		};
-		if (oldPriority !== filter.priority || oldStatus !== filter.status) {
-			this.loadData(filter);
+			);
 		}
+	}]);
+
+	return BugRow;
+}(React.Component);
+
+var BugTable = function (_React$Component2) {
+	_inherits(BugTable, _React$Component2);
+
+	function BugTable() {
+		_classCallCheck(this, BugTable);
+
+		return _possibleConstructorReturn(this, (BugTable.__proto__ || Object.getPrototypeOf(BugTable)).apply(this, arguments));
 	}
-	addBug(bug) {
-		console.log("Adding bug:", bug);
-		$.ajax({
-			type: 'POST', url: '/api/bugs', contentType: 'application/json',
-			data: JSON.stringify(bug),
-			success: function (data) {
-				var bug = data;
-				// We're advised not to modify the state, it's immutable. So, make a copy.
-				var bugsModified = this.state.bugs.concat(bug);
-				this.setState({ bugs: bugsModified });
-			}.bind(this),
-			error: function (xhr, status, err) {
-				// ideally, show error to user.
-				console.log("Error adding bug:", err);
+
+	_createClass(BugTable, [{
+		key: 'render',
+		value: function render() {
+			var bugRows = this.props.bugs.map(function (bug) {
+				return React.createElement(BugRow, { key: bug._id, bug: bug });
+			});
+			return React.createElement(
+				'table',
+				null,
+				React.createElement(
+					'thead',
+					null,
+					React.createElement(
+						'tr',
+						null,
+						React.createElement(
+							'th',
+							null,
+							'Id'
+						),
+						React.createElement(
+							'th',
+							null,
+							'Status'
+						),
+						React.createElement(
+							'th',
+							null,
+							'Priority'
+						),
+						React.createElement(
+							'th',
+							null,
+							'Owner'
+						),
+						React.createElement(
+							'th',
+							null,
+							'Title'
+						)
+					)
+				),
+				React.createElement(
+					'tbody',
+					null,
+					bugRows
+				)
+			);
+		}
+	}]);
+
+	return BugTable;
+}(React.Component);
+
+var BugList = function (_React$Component3) {
+	_inherits(BugList, _React$Component3);
+
+	function BugList() {
+		_classCallCheck(this, BugList);
+
+		var _this3 = _possibleConstructorReturn(this, (BugList.__proto__ || Object.getPrototypeOf(BugList)).call(this));
+
+		_this3.state = { bugs: [] };
+		_this3.addBug = _this3.addBug.bind(_this3);
+		_this3.loadData = _this3.loadData.bind(_this3);
+		_this3.changeFilter = _this3.changeFilter.bind(_this3);
+		return _this3;
+	}
+
+	_createClass(BugList, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			//ajax request here
+			this.loadData();
+		}
+	}, {
+		key: 'loadData',
+		value: function loadData() {
+			var _this4 = this;
+
+			var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+			var status = filter.status;
+			var priority = filter.priority;
+			console.log('ajax: /api/bugs?priority=' + priority + '&status=' + status);
+			$.ajax('/api/bugs?priority=' + priority + '&status=' + status).done(function (data) {
+				_this4.setState({ bugs: data });
+			});
+		}
+	}, {
+		key: 'changeFilter',
+		value: function changeFilter(filter) {
+			//sync url and loadData 
+			var params = $.param(filter);
+			this.props.router.push('?' + params);
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevProps) {
+			var oldPriority = prevProps.location.query.priority;
+			var oldStatus = prevProps.location.query.status;
+			var filter = {
+				priority: this.props.location.query.priority,
+				status: this.props.location.query.status
+			};
+			if (oldPriority !== filter.priority || oldStatus !== filter.status) {
+				this.loadData(filter);
 			}
-		});
-	}
-	render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(BugFilter, { changeFilter: this.changeFilter, query: this.props.location.query }),
-			React.createElement(BugTable, { bugs: this.state.bugs }),
-			React.createElement(BugAdd, { addBug: this.addBug })
-		);
-	}
-}
+		}
+	}, {
+		key: 'addBug',
+		value: function addBug(bug) {
+			console.log("Adding bug:", bug);
+			$.ajax({
+				type: 'POST', url: '/api/bugs', contentType: 'application/json',
+				data: JSON.stringify(bug),
+				success: function (data) {
+					var bug = data;
+					// We're advised not to modify the state, it's immutable. So, make a copy.
+					var bugsModified = this.state.bugs.concat(bug);
+					this.setState({ bugs: bugsModified });
+				}.bind(this),
+				error: function error(xhr, status, err) {
+					// ideally, show error to user.
+					console.log("Error adding bug:", err);
+				}
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(BugFilter, { changeFilter: this.changeFilter, query: this.props.location.query }),
+				React.createElement(BugTable, { bugs: this.state.bugs }),
+				React.createElement(BugAdd, { addBug: this.addBug })
+			);
+		}
+	}]);
+
+	return BugList;
+}(React.Component);
 
 module.exports = BugList;
 
 },{"./bugAdd.js":500,"./bugFilter.js":502,"jquery":162,"react":493,"react-dom":264,"react-router":462}],504:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-class NotFound extends React.Component {
-    render() {
-        return React.createElement(
-            'h1',
-            null,
-            '404 - Page Not Found'
-        );
+var NotFound = function (_React$Component) {
+    _inherits(NotFound, _React$Component);
+
+    function NotFound() {
+        _classCallCheck(this, NotFound);
+
+        return _possibleConstructorReturn(this, (NotFound.__proto__ || Object.getPrototypeOf(NotFound)).apply(this, arguments));
     }
-}
+
+    _createClass(NotFound, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'h1',
+                null,
+                '404 - Page Not Found'
+            );
+        }
+    }]);
+
+    return NotFound;
+}(React.Component);
 
 module.exports = NotFound;
 

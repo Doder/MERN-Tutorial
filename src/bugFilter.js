@@ -1,7 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
-var Button = require('react-bootstrap').Button;
+import {Button, Panel, Grid, Row, Col} from 'react-bootstrap';
+
 
 class BugFilter extends React.Component{
 	constructor(){
@@ -51,21 +52,31 @@ class BugFilter extends React.Component{
 	}
 	render(){
 		return(
-			<div id="filter">
+			<Panel header="Filter" collapsible expanded={true}>
+			<Grid fluid={true}>
+				<Row>
+				<Col md={4}>
 				<label>Priority</label>
 				<select name='priority' value={this.state.priority} onChange={this.changeHandler}>
 					<option value="undefined">Any</option>
 					<option value="P1">P1</option>
 					<option value="P2">P2</option>
-				</select><br/>
+				</select>
+				</Col>
+				<Col md={4}>
 				<label>Status</label>
 				<select name='status' value={this.state.status} onChange={this.changeHandler}>
 					<option value="undefined">Any</option>
 					<option value="New">New</option>
 					<option value="Old">Old</option>
-				</select><br/>
+				</select>
+				</Col>
+				<Col md={4}>
 				<Button bsStyle="primary" onClick={this.clickHandler}>Filter</Button>
-			</div>
+				</Col>
+			</Row>
+			</Grid>
+			</Panel>
 		);
 	}
 }
