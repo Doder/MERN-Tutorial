@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
-
+import {Panel, Form, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 class BugAdd extends React.Component{
 	constructor(){
@@ -31,14 +31,21 @@ class BugAdd extends React.Component{
 	}
 	render(){
 		return(
-			<form onSubmit={this.handleSubmit} name="bugAdd">
-				Title:<br/>
-				<input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
-				<br/>
-				Owner:<br/>
-				<input type="text" name="owner" value={this.state.owner} onChange={this.handleChange}/><br/>
-				<input type="submit" value="Submit"/>
-			</form>
+			<Panel header="Add New Bug">
+			<Form inline onSubmit={this.handleSubmit} name="bugAdd">
+				<FormGroup>
+					<ControlLabel>Title</ControlLabel>
+					<FormControl type="text" name="title" value={this.state.title} onChange={this.handleChange} />
+				</FormGroup>
+				<FormGroup>
+					<ControlLabel>Owner</ControlLabel>
+					<FormControl type="text" name="title" value={this.state.title} onChange={this.handleChange} />
+				</FormGroup>
+				<Button type="submit">
+					Submit
+				</Button>
+			</Form>
+			</Panel>
 		);
 	}
 }
