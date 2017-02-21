@@ -4,6 +4,7 @@ var $ = require('jquery');
 var BugAdd = require('./bugAdd.js');
 var BugFilter = require('./bugFilter.js');
 var Link = require('react-router').Link;
+import {Table, Panel} from 'react-bootstrap'
 
 class BugRow extends React.Component{
 	render(){
@@ -26,7 +27,8 @@ class BugTable extends React.Component{
 		}
 		);
 		return(
-		<table>
+		<Panel>
+		<Table striped condensed bordered>
 		<thead>
 			<tr>
 				<th>Id</th>
@@ -39,7 +41,8 @@ class BugTable extends React.Component{
 		<tbody>
 			{bugRows}
 		</tbody>
-		</table>
+		</Table>
+		</Panel>
 		);
 	}
 }

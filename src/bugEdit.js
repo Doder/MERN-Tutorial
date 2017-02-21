@@ -2,6 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 var Link = require('react-router').Link;
+import {Form, Panel, FormControl, FormGroup,
+     ControlLabel, Button, ButtonToolbar,
+      ButtonGroup, Alert } from 'react-bootstrap'
 
 class BugEdit extends React.Component {
     constructor(doc){
@@ -10,7 +13,8 @@ class BugEdit extends React.Component {
             title : 'undefined',
             owner : 'underfined',
             status : 'undefined',
-            priority : 'undefined'
+            priority : 'undefined',
+            isAlertHidden : true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +34,10 @@ class BugEdit extends React.Component {
             contentType: 'application/json',
             data: JSON.stringify(bug),
 			success: function (data) {
-				
+				this.setState({
+                    isAlertHidden : false
+                });
+                console.log('success');
 			}.bind(this),
 			error: function (xhr, status, err) {
 				// ideally, show error to user.
@@ -47,23 +54,39 @@ class BugEdit extends React.Component {
     }
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit} name="bugEdit">
-				Title:<br/>
-				<input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
-				<br/>
-				Owner:<br/>
-				<input type="text" name="owner" value={this.state.owner} onChange={this.handleChange}/><br/>
-                Status:<br/>
-				<input type="text" name="status" value={this.state.status} onChange={this.handleChange}/>
-				<br/>
-                Priority:<br/>
-				<input type="text" name="priority" value={this.state.priority} onChange={this.handleChange}/>
-				<br/>
-				<input type="submit" value="Submit"/>
-			</form>
-            <Link to="/bugs">Bug List</Link>
-            </div>
+            <Panel header="Edit Bug" style={{maxWidth: 600}}>
+            <Form name="bugEdit">
+                <FormGroup>
+                    <ControlLabel>Title:</ControlLabel>
+				    <FormControl type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
+				</FormGroup>
+                <FormGroup>
+				    <ControlLabel>Owner:</ControlLabel>
+				    <FormControl type="text" name="owner" value={this.state.owner} onChange={this.handleChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel>Status:</ControlLabel>
+				    <FormControl type="text" name="status" value={this.state.status} onChange={this.handleChange}/>
+				</FormGroup>
+                <FormGroup>
+                    <ControlLabel>Priority:</ControlLabel>
+                    <FormControl type="text" name="priority" value={this.state.priority} onChange={this.handleChange}/>
+				</FormGroup>
+			</Form>
+            <ButtonToolbar> 
+                <ButtonGroup>
+                    <Button bsStyle="primary" onClick={this.handleSubmit}>Submit</Button>
+                 </ButtonGroup>
+                  <ButtonGroup>
+                    <Link className="btn btn-link" to="/bugs">Back</Link>
+                 </ButtonGroup>
+            </ButtonToolbar>
+            {this.state.isAlertHidden? 
+            '': <Alert bsStyle="success">
+                <strong>Bug saved to DB successfully.</strong>
+            </Alert> 
+            }
+            </Panel>
         );
     }
 }
